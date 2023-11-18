@@ -1,0 +1,9 @@
+{
+    "name": "WEEEK",
+    "description": "Расширение для добавления задач",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {"default_popup":"bg.html"
+    },
+    "permissions": ["storage"]
+}
