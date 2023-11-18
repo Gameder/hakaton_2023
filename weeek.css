@@ -1,0 +1,16 @@
+@import url(‘https://fonts.googleapis.com/css2?family=Poppins:wght@3@@;480;500;600;700;880;900&display=swap’);
+.container {
+    width: 600px;
+    height: 300px;
+    background-image: url('background.png');
+    background-repeat: repeat;
+  }
+
+.button{
+    border: none;
+    border-radius: 30px;
+    color: grey;
+}
+
+
+  
