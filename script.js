@@ -1,17 +1,18 @@
 const taskInput = document.getElementById('taskInput');
 const taskInput_date = document.getElementById('date');
 const taskList = document.getElementById('taskList');
-
+var int = 0;
 // Слушатель события отправки формы
-document.forms[0].addEventListener('click', function(e) {
+document.forms[0].addEventListener('submit', function(e) {
   e.preventDefault();
   addTask();
 });
 
-document.forms[0].addEventListener('submit', function(e) {
-    e.preventDefault();
-    deleteTask();
-  });
+document.forms[0].addEventListener('click', function (event) {
+    if (event.target.nodeName === 'BUTTON'){
+      event.target.closest('li').remove()
+    }
+  })
 
 // Функция добавления задачи
 function addTask() {
@@ -21,12 +22,6 @@ function addTask() {
     task.innerText = taskText;
     const button = document.createElement('button');
     button.innerText = 'х';
-    button.onclick = function (event) {
-        var ul = document.getElementById("taskList");
-        var items = ul.getElementsByTagName("li");
-        var lastItem = items[items.length-1];
-        ul.removeChild(lastItem);
-      };
     const taskItem = document.createElement('li');
     task.appendChild(button);
     taskItem.appendChild(task);
@@ -35,11 +30,7 @@ function addTask() {
   }
 }
 
-function deleteTask() {
-    var ul = document.getElementById("taskList");
-    var items = ul.getElementsByTagName("li");
-    var lastItem = items[items.length-1];
-    ul.removeChild(lastItem);
 
-  }
+
+
 
