@@ -9,28 +9,54 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   </head>
+  <nav class="navbar" style="background-color: transparent;">
+    <div class="container-fluid" style="background-color: transparent;">
+      <a class="navbar-brand">WEEEK</a>
+      <li class="nav-item d-flex">
+      <button type="button" class="btn btn-outline-danger">Выйти</button>
+    </li>
+      </div>
+    </div>
+  </nav>
   <body style="width: 400px; height: 850px;" class="container">
-    <h1>Планировщик задач WEEEk</h1>
     
     <!-- Форма для создания новой задачи -->
-      <form>
-        <div class="mb-3">
-          <input type="date" id="date" name="date" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label for="taskInput" class="form-label">Название таска</label>
-          <input type="email" class="form-control" id="taskInput">
-        </div>
-        <button type="clicl" class="btn btn-primary">Submit</button>
-      </form>
-    
-    <!-- Список задач -->
     <div><p>Текущие задачи: </p></div>
                 <ul id="taskList">  
                 <!-- Каждая задача будет добавляться с помощью скрипта -->
             </ul>
             </div>
+      <form>
+        <div class="mb-3">
+          <input type="date" id="date" name="date" class="form-control">
+        </div>
+        <div class="mb-3">
+          <input class="form-control" id="taskName" placeholder="Название">
+        </div>
+        <textarea class="form-control mb-3" aria-label="With textarea" id="taskText" placeholder="Описание"></textarea>
+        <div class="input-group mb-3">
+          <select class="form-select" aria-label="Default select example" style=>
+            <option selected>Тип</option>
+            <option value="action">Действие</option>
+            <option value="meeting">Встреча</option>
+            <option value="call">Звонок</option>
+          </select>
+          <!-- <span class="input-group-text"></span> -->
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Приоритет</option>
+            <option value="0" style="background-color: #CCFF90; color: #00C853">• низкий</option>
+            <option value="1" style="background-color: #FFE082; color: #E64A19;">• средний</option>
+            <option value="2" style="background-color: #FF8A80; color: #D32F2F;">• высокий</option>
+            <option value="3" style="background-color: #BBDEFB; color: #2196F3;">• замороженный</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+      </form>
+    
+    <!-- Список задач -->
+    
     <!-- Подключение скриптов -->
     <script src="script.js"></script>
   </body>
