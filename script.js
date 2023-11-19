@@ -18,7 +18,7 @@ window.onload = async function(e) {
     navbar.style.display = "block"
     mainDiv.style.display = "block"
     authDiv.style.display = "none"
-    let tasks = await getTasks()
+    let tasks = await getTasks('', 'today')
     // console.log(tasks)
     for (let i = 0; i < tasks.length; i++) {
       let task = tasks[i]
@@ -38,7 +38,7 @@ window.onload = async function(e) {
 }
 
 function logout(){
-  Cookies.remove("token")
+  localStorage.removeItem("token")
   navbar.style.display = "none"
     mainDiv.style.display = "none"
     authDiv.style.display = "block"
