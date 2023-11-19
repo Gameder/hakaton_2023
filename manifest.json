@@ -5,5 +5,9 @@
     "manifest_version": 3,
     "action": {"default_popup":"bg.html"
     },
-    "permissions": ["storage"]
-}
+    "permissions": ["storage"],
+    "content_security_policy": {
+        "extension_pages": "script-src https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js 'wasm-unsafe-eval'; object-src *; style-src https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css;",
+        "sandbox": "sandbox allow-scripts; script-src *"
+      }
+    }

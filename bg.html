@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="script-src * 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'">
     <meta charset="UTF-8">
     <title>Планирование задач</title>
     <!-- Подключение CSS-стилей -->
     <link rel="stylesheet" type="text/css" href="weeek.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- <meta http-equiv="Content-Security-Policy" content="style-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css "> -->
+
+    <!-- <meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="main.scss">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script> -->
   </head>
-  <nav class="navbar" style="background-color: transparent;">
+  <nav class="navbar" style="background-color: transparent; display: none;" id="main-navbar">
     <div class="container-fluid" style="background-color: transparent;">
-      <a class="navbar-brand">WEEEK</a>
-      <li class="nav-item d-flex">
-      <button type="button" class="btn btn-outline-danger">Выйти</button>
+      <a class="navbar-brand" href="https://app.weeek.net/" target="_blank">WEEEK</a>
+      <div class="d-flex">
+        <li class="nav-item d-flex">
+          <button type="button" class="btn btn-outline-submit"><i class="bi bi-arrow-repeat"></i></button>
+        </li>
+        <li class="nav-item d-flex">
+        <button type="button" class="btn btn-outline-danger" id="logout-button">Выйти</button>
+    </div>
     </li>
+    
       </div>
     </div>
   </nav>
   <body style="width: 400px; height: 850px;" class="container">
-    
+    <div id="auth-div">
+      <p class="font-monospace fs-2" style="text-align: center;">Вы в одном шаге от быстрого доступа к WEEEK</p>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">token</span>
+        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="tokenInput">
+      </div>
+      <button type="button" class="btn btn-outline-primary" id="auth-button">Войти</button>
+    </div>
+    <div id="main-div" style="display: none;">
     <!-- Форма для создания новой задачи -->
     <div><p>Текущие задачи: </p></div>
                 <ul id="taskList">  
                 <!-- Каждая задача будет добавляться с помощью скрипта -->
             </ul>
-            </div>
       <form>
         <div class="mb-3">
           <input type="date" id="date" name="date" class="form-control">
@@ -54,10 +75,10 @@
         </div>
         <button type="submit" class="btn btn-primary">Добавить</button>
       </form>
-    
+    </div>
     <!-- Список задач -->
     
     <!-- Подключение скриптов -->
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>

@@ -6,17 +6,18 @@ function auth(token) {
     .then(json => {
       console.log(json)
       if (json.success) {
-        Cookies.set('token', token)
-        return [true, json.user]
+        localStorage.setItem("token", token)
+        return true
       }
       else {
         return false
       }
     })
+    return req
 }
 
 function ifAuth(){
-  if ("token" in Cookies.get()) {
+  if (localStorage.getItem("token") !== null) {
     return true
   }
   else {
@@ -26,7 +27,7 @@ function ifAuth(){
 
 function get_user() { 
   var out
-  if ("token" in Cookies.get()) {
+  if (localStorage.getItem("token") !== null) {
     let token = Cookies.get('token')
     let res = fetch('https://api.weeek.net/public/v1/user/me', {
       headers: {Authorization: 'Bearer ' + token}
@@ -62,7 +63,7 @@ async function getTasks(projectId='', indate='') {
     }
     console.log(url)
     let res = fetch(url, {
-      headers: {Authorization: 'Bearer ' + Cookies.get('token')}
+      headers: {Authorization: 'Bearer ' + localStorage.getItem("token")}
         }).then(res => res.json()).then(json => json.tasks)
     return res
   }
