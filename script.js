@@ -1,19 +1,22 @@
-import { auth, ifAuth, getTasks, get_user } from "./api.js";
+import { auth, ifAuth, getTasks, getProjects, createTask, closeTask } from "./api.js";
 
 const taskName = document.getElementById('taskName');
 const taskInput = document.getElementById('taskText');
 const taskInput_date = document.getElementById('date');
 const taskList = document.getElementById('taskList');
+const taskType = document.getElementById('task-type');
+const taskPriority = document.getElementById('task-priority');
 const tokenInput = document.getElementById('tokenInput');
 const authDiv = document.getElementById('auth-div');
 const mainDiv = document.getElementById('main-div');
 const navbar = document.getElementById('main-navbar');
+const projectSelect = document.getElementById('project-select');
 const authButton = document.getElementById('auth-button');
 const logoutButton = document.getElementById('logout-button');
 
-window.onload = async function(e) {
-  console.log("adasda")
-  e.preventDefault();
+window.onload = onLogin
+
+async function onLogin() {
   if (ifAuth()) {
     navbar.style.display = "block"
     mainDiv.style.display = "block"
@@ -22,19 +25,40 @@ window.onload = async function(e) {
     // console.log(tasks)
     for (let i = 0; i < tasks.length; i++) {
       let task = tasks[i]
-      console.log(task)
+      let title = task.title
+      let description = ''
+      let date = ''
+      if (task.description !== null) {
+        description = task.description
+      }
+      if (task.date !== null) {
+        date = task.date
+      }
       let card = elementFromHTML(`
-  <div class="card mb-3" style="width: 18rem;">
+  <div class="card mb-3" style="width: 18rem;" id=task${task.id}>
       <div class="card-body">
-        <h5 class="card-title">${task.title}</h5>
-        <p class="card-text">${task['description']}\n${task['date']}</p>
-        <a onclick="deleteTask()" class="btn btn-primary">Закрыть задачу</a>
+        <h5 class="card-title">${title}</h5>
+        <p class="card-text">${description}\n${date}</p>
+        <a class="btn btn-primary" id=btn${task.id}>Закрыть задачу</a>
       </div>
     </div>
   `)
+  if (task.isCompleted === false) {
   taskList.appendChild(card)
-    }
+  let btn = document.getElementById(`btn${task.id}`)
+  btn.onclick = deleteTask(task.id)
+    }}
+  let projects = await getProjects()
+  for (let i = 0; i < projects.length; i++) {
+    let project = projects[i]
+    projectSelect.appendChild(elementFromHTML(
+      `
+      <option value="${project.id}">${project.title}</option>
+      `
+    ))
   }
+  }
+
 }
 
 function logout(){
@@ -68,38 +92,44 @@ function elementFromHTML(html) {
 
 async function authButtonFunc(){
   let res = await auth(tokenInput.value)
-  console.log(ifAuth())
-  if (ifAuth() === true) {
-    navbar.style.display = "block"
-    mainDiv.style.display = "block"
-    authDiv.style.display = "none"
-  } 
+  onLogin()
 }
 
 authButton.onclick = authButtonFunc
 
 // Функция добавления задачи
-function addTask() {
+async function addTask() {
+  let date = taskInput_date.value.split("-")
+  // ymd
+  var task = await createTask(
+    taskName.value,
+    taskInput.value,
+    [date[2], date[1], date[0]].join('.'),
+    projectSelect.value,
+    taskType.value,
+    taskPriority.value
+  )
+
   let card = elementFromHTML(`
   <div class="card mb-3" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">${taskName.value}</h5>
         <p class="card-text">${taskInput.value}\n${taskInput_date.value}</p>
-        <a onclick="deleteTask()" class="btn btn-primary">Закрыть задачу</a>
+        <a class="btn btn-primary" id=btn${task.id}>Закрыть задачу</a>
       </div>
     </div>
   `)
   taskList.appendChild(card)
+  let btn = document.getElementById(`btn${task.id}`).onclick = deleteTask
 
 
 }
 
-function deleteTask() {
-    var ul = document.getElementById("taskList");
-    var items = ul.getElementsByTagName("div");
-    var lastItem = items[items.length-1];
-    taskList.removeChild(lastItem);
+function deleteTask(id) {
+    let task = document.getElementById(`task${id}`)
+    task.style.display = "none"
+    closeTask(id)
 
   }
 
-  export {authButton}
+  export {authButton, deleteTask}
