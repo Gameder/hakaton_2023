@@ -109,18 +109,18 @@ async function addTask() {
     taskType.value,
     taskPriority.value
   )
-
+    console.log(task)
   let card = elementFromHTML(`
-  <div class="card mb-3" style="width: 18rem;">
+  <div class="card mb-3" style="width: 18rem;" id=task${task.task.id}>
       <div class="card-body">
         <h5 class="card-title">${taskName.value}</h5>
         <p class="card-text">${taskInput.value}\n${taskInput_date.value}</p>
-        <a class="btn btn-primary" id=btn${task.id}>Закрыть задачу</a>
+        <a class="btn btn-primary" id=btn${task.task.id}>Закрыть задачу</a>
       </div>
     </div>
   `)
   taskList.appendChild(card)
-  let btn = document.getElementById(`btn${task.id}`).onclick = deleteTask
+  let btn = document.getElementById(`btn${task.task.id}`).onclick = function e(inp) {deleteTask(inp.target.id.replace("btn", ""))} 
 
 
 }

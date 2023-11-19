@@ -81,7 +81,8 @@ async function createTask(title, desc, day, projectId, type, priority) {
     },
     body: JSON.stringify(inp)
   }).then(res => res.json());
-  return inp
+  console.log(response)
+  return response
   
 }
 
